@@ -1,0 +1,7 @@
+@media screen and (max-width: 780px) {
+  .header__logo {
+    width: 104px;
+    height: 25px;
+    margin: 0 27px 0 27px;
+  }
+}

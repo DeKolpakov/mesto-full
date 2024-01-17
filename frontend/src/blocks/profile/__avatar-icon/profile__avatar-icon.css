@@ -1,0 +1,12 @@
+.profile__avatar-icon {
+  width: 26px;
+  height: 26px;
+  background-image: url("../../../images/icons/avatar-edit.svg");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+  margin: 47px 47px;
+  padding: 0;
+}

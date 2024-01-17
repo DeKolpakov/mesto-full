@@ -1,0 +1,17 @@
+.galery__button-like {
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/icons/like_disabled.svg);
+  background-repeat: no-repeat;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.8s;
+  padding: 0;
+  margin: 0;
+}
+
+.galery__button-like:hover {
+  opacity: 0.5;
+}

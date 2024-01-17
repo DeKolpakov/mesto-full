@@ -1,0 +1,17 @@
+.popup__button-load {
+  background-color: brown;
+  
+  /* display: inline-block; */
+
+
+  animation: glowing 2000ms infinite;
+}
+
+@keyframes glowing {
+  0% { background-color: black; box-shadow: 0 0 5px gray; }
+  25% { background-color: gray; box-shadow: 0 0 20px gray; }
+  50% { background-color: black; box-shadow: 0 0 5px gray; }
+  75% { background-color: gray; box-shadow: 0 0 20px gray; }
+  100% { background-color: black; box-shadow: 0 0 5px gray; }
+  }
+  

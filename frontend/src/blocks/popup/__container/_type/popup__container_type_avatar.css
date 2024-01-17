@@ -1,0 +1,15 @@
+.popup__container_type_avatar {
+  width: 430px;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 580px) {
+  .popup__container_type_avatar {
+    width: 282px;
+    margin: 0 19px 0 19px;
+  }
+}

@@ -1,0 +1,11 @@
+.popup__input-span {
+  max-width: 350px;
+  min-height: 30px;
+  display: block;
+  margin: 0 36px 25px 36px;
+  padding: 0;
+}
+
+.popup__input-span:nth-of-type(1) {
+  margin: 0 38px 0px 36px;
+}
