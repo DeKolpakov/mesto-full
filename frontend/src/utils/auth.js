@@ -1,7 +1,7 @@
 const BASE_URL = 'https://api.dekolpakov.nomoredomainsmonster.ru';
+//const BASE_URL = 'http://localhost:3000';
 
 class ApiAuth {
-
   _checkResponse(res) {
     if (res.ok) {
       return res.json();
@@ -40,8 +40,8 @@ class ApiAuth {
 
   checkToken() {
     return fetch(`${BASE_URL}/users/me`, {
-      method: "GET",
-      credentials: "include",
+      method: 'GET',
+      credentials: 'include',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

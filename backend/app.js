@@ -32,13 +32,13 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'https://dekolpakov.nomoredomainsmonster.ru',
       'https://api.dekolpakov.nomoredomainsmonster.ru',
     ],
     credentials: true,
     maxAge: 30,
   })
 );
+
 app.use(limiter);
 app.use(helmet());
 app.use(cookieParser());
