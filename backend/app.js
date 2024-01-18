@@ -4,11 +4,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-const limiter = require('./middlewares/limiter');
+const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
+const limiter = require('./middlewares/limiter');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 
@@ -22,27 +22,13 @@ const {
 
 const NotFoundError = require('./errors/NotFoundError');
 
-const { PORT = 3000} = process.env;
+const { PORT } = process.env;
 
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/mydb');
 
-app.use(
-  cors({
-    origin: [
-      'http://localhost:3001',
-      'http://localhost:3000',
-      'http://dekolpakov.nomoredomainsmonster.ru',
-      'http://api.dekolpakov.nomoredomainsmonster.ru',
-      'https://dekolpakov.nomoredomainsmonster.ru',
-      'https://api.dekolpakov.nomoredomainsmonster.ru',
-    ],
-    credentials: true,
-    maxAge: 30,
-  })
-);
-
+app.use(cors);
 app.use(limiter);
 app.use(helmet());
 app.use(cookieParser());
