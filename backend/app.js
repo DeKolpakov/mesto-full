@@ -22,7 +22,7 @@ const {
 
 const NotFoundError = require('./errors/NotFoundError');
 
-const { PORT } = process.env;
+const { PORT = 3000} = process.env;
 
 const app = express();
 
@@ -31,7 +31,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/mydb');
 app.use(
   cors({
     origin: [
+      'http://localhost:3001',
       'http://localhost:3000',
+      'http://dekolpakov.nomoredomainsmonster.ru',
+      'http://api.dekolpakov.nomoredomainsmonster.ru',
+      'https://dekolpakov.nomoredomainsmonster.ru',
       'https://api.dekolpakov.nomoredomainsmonster.ru',
     ],
     credentials: true,
@@ -74,4 +78,4 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(PORT || 3000);
+app.listen(PORT);
