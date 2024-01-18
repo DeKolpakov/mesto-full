@@ -1,5 +1,5 @@
-//const BASE_URL = 'https://api.dekolpakov.nomoredomainsmonster.ru';
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://api.dekolpakov.nomoredomainsmonster.ru';
+//const BASE_URL = 'http://localhost:3000';
 class Api {
   _checkResponse(res) {
     if (res.ok) {
