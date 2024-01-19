@@ -13,7 +13,7 @@ const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 
 const { loginUser, createUser } = require('./controllers/users');
-const { logRequest, logError } = require('./middlewares/logger');
+const { logRequest, logError } = require('./middlewares/Logger');
 
 const {
   createUserValidate,
