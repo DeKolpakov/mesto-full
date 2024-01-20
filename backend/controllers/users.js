@@ -9,14 +9,13 @@ const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const AuthorizationError = require('../errors/AuthorizationError');
 const DublicateError = require('../errors/DublicateError');
-const InternalServerError = require('../errors/InternalServerError');
 
 module.exports.getUsers = async (req, res, next) => {
   try {
     const users = await User.find({}).select('-__v');
     return res.json(users);
   } catch (error) {
-    return next(new InternalServerError('На сервере произошла ошибка'));
+    return next();
   }
 };
 
@@ -37,7 +36,7 @@ module.exports.getUserById = async (req, res, next) => {
           new BadRequestError('Переданы некорректные данные пользователя')
         );
       default:
-        return next(new InternalServerError('На сервере произошла ошибка'));
+        return next();
     }
   }
 };
@@ -76,9 +75,9 @@ module.exports.createUser = async (req, res, next) => {
             new DublicateError('Пользователь с таким email уже существует.')
           );
         }
-        return next(new InternalServerError('На сервере произошла ошибка'));
+        return next();
       default:
-        return next(new InternalServerError('На сервере произошла ошибка'));
+        return next();
     }
   }
 };
@@ -97,9 +96,13 @@ module.exports.loginUser = async (req, res, next) => {
       return next(new AuthorizationError('Неправильные почта или пароль'));
     }
 
-    const token = jwt.sign({ _id: user._id }, NODE_ENV === "production" ? JWT_SECRET : 'super-strong-secret', {
-      expiresIn: '7d',
-    });
+    const token = jwt.sign(
+      { _id: user._id },
+      NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret',
+      {
+        expiresIn: '7d',
+      }
+    );
 
     res.cookie('jwt', token, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -112,7 +115,7 @@ module.exports.loginUser = async (req, res, next) => {
       message: 'Успешная авторизация',
     });
   } catch (error) {
-    return next(new InternalServerError('На сервере произошла ошибка'));
+    return next();
   }
 };
 
@@ -124,12 +127,7 @@ module.exports.getUserInfo = async (req, res, next) => {
     }
     return res.json(currentUser);
   } catch (error) {
-    switch (error.name) {
-      case 'CastError':
-        return next(new BadRequestError('Неверно указан _id пользователя.'));
-      default:
-        return next(new InternalServerError('На сервере произошла ошибка'));
-    }
+    return next();
   }
 };
 
@@ -147,8 +145,6 @@ module.exports.updateUserData = async (req, res, next) => {
     return res.send(userUpdate);
   } catch (error) {
     switch (error.name) {
-      case 'CastError':
-        return next(new BadRequestError('Неверно указан _id пользователя.'));
       case 'ValidationError':
         return next(
           new BadRequestError(
@@ -156,7 +152,7 @@ module.exports.updateUserData = async (req, res, next) => {
           )
         );
       default:
-        return next(new InternalServerError('На сервере произошла ошибка'));
+        return next();
     }
   }
 };
@@ -184,7 +180,7 @@ module.exports.updateUserAvatar = async (req, res, next) => {
           )
         );
       default:
-        return next(new InternalServerError('На сервере произошла ошибка'));
+        return next();
     }
   }
 };

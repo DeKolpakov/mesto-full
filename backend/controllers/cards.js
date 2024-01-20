@@ -1,7 +1,6 @@
 const Card = require('../models/card');
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
-const InternalServerError = require('../errors/InternalServerError');
 const UserRightsError = require('../errors/UserRightsError');
 
 module.exports.getCards = async (req, res, next) => {
@@ -9,7 +8,7 @@ module.exports.getCards = async (req, res, next) => {
     const cards = await Card.find({});
     return res.send(cards);
   } catch (error) {
-    return next(new InternalServerError('На сервере произошла ошибка'));
+    return next();
   }
 };
 
@@ -27,7 +26,7 @@ module.exports.createCard = async (req, res, next) => {
           )
         );
       default:
-        return next(new InternalServerError('На сервере произошла ошибка'));
+        return next();
     }
   }
 };
@@ -53,7 +52,7 @@ module.exports.deleteCard = async (req, res, next) => {
           )
         );
       default:
-        return next(new InternalServerError('На сервере произошла ошибка'));
+        return next();
     }
   }
 };
@@ -78,7 +77,7 @@ module.exports.likeCard = async (req, res, next) => {
           )
         );
       default:
-        return next(new InternalServerError('На сервере произошла ошибка'));
+        return next();
     }
   }
 };
@@ -103,7 +102,7 @@ module.exports.dislikeCard = async (req, res, next) => {
           )
         );
       default:
-        return next(new InternalServerError('На сервере произошла ошибка'));
+        return next();
     }
   }
 };

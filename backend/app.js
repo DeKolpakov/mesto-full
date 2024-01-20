@@ -20,6 +20,7 @@ const {
   loginValidate,
 } = require('./middlewares/validation');
 
+const errorHandler = require('./middlewares/errorHandler')
 const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT, BDADDRES } = process.env;
@@ -36,30 +37,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(logRequest);
-
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-
 app.post('/signin', loginValidate, loginUser);
 app.post('/signup', createUserValidate, createUser);
 app.use('/users', auth, userRouter);
 app.use('/cards', auth, cardRouter);
 
-app.use(logError);
-
-app.use(errors());
 app.use(() => {
   throw new NotFoundError('Неверно указан путь.');
 });
-app.use((err, req, res, next) => {
-  const { statusCode, message } = err;
-  res.status(statusCode).send({
-    message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
-  });
-  next();
-});
+
+app.use(logError);
+app.use(errors());
+app.use(errorHandler);
 
 app.listen(PORT || 3000);

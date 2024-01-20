@@ -41,7 +41,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: { value: true, message: 'Поле является обязвтельным' },
-    minlength: [8, 'Минимальная длинна 8 символа'],
     select: false,
   },
 });
