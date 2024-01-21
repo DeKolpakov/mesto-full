@@ -15,7 +15,7 @@ module.exports.getUsers = async (req, res, next) => {
     const users = await User.find({}).select('-__v');
     return res.json(users);
   } catch (error) {
-    return next();
+    return next(error);
   }
 };
 
@@ -36,7 +36,7 @@ module.exports.getUserById = async (req, res, next) => {
           new BadRequestError('Переданы некорректные данные пользователя')
         );
       default:
-        return next();
+        return next(error);
     }
   }
 };
@@ -75,9 +75,9 @@ module.exports.createUser = async (req, res, next) => {
             new DublicateError('Пользователь с таким email уже существует.')
           );
         }
-        return next();
+        return next(error);
       default:
-        return next();
+        return next(error);
     }
   }
 };
@@ -115,7 +115,7 @@ module.exports.loginUser = async (req, res, next) => {
       message: 'Успешная авторизация',
     });
   } catch (error) {
-    return next();
+    return next(error);
   }
 };
 
@@ -123,11 +123,11 @@ module.exports.getUserInfo = async (req, res, next) => {
   try {
     const currentUser = await User.findById(req.user._id).select('-__v');
     if (!currentUser) {
-      return next(new AuthorizationError('Пользователь не авторизован'));
+      return next(new NotFoundError('Пользовательс указанным _id не найден.'));
     }
     return res.json(currentUser);
   } catch (error) {
-    return next();
+    return next(error);
   }
 };
 
@@ -152,7 +152,7 @@ module.exports.updateUserData = async (req, res, next) => {
           )
         );
       default:
-        return next();
+        return next(error);
     }
   }
 };
@@ -180,7 +180,7 @@ module.exports.updateUserAvatar = async (req, res, next) => {
           )
         );
       default:
-        return next();
+        return next(error);
     }
   }
 };

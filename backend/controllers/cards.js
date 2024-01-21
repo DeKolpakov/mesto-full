@@ -8,7 +8,7 @@ module.exports.getCards = async (req, res, next) => {
     const cards = await Card.find({});
     return res.send(cards);
   } catch (error) {
-    return next();
+    return next(error);
   }
 };
 
@@ -26,7 +26,7 @@ module.exports.createCard = async (req, res, next) => {
           )
         );
       default:
-        return next();
+        return next(error);
     }
   }
 };
@@ -34,7 +34,7 @@ module.exports.createCard = async (req, res, next) => {
 module.exports.deleteCard = async (req, res, next) => {
   try {
     const deletedCard = await Card.findByIdAndDelete(req.params.cardId);
-    if (!deletedCard || null) {
+    if (!deletedCard) {
       return next(new NotFoundError('Карточка с указанным _id не найдена.'));
     }
     if (deletedCard.owner.toString() !== req.user._id.toString()) {
@@ -52,7 +52,7 @@ module.exports.deleteCard = async (req, res, next) => {
           )
         );
       default:
-        return next();
+        return next(error);
     }
   }
 };
@@ -77,7 +77,7 @@ module.exports.likeCard = async (req, res, next) => {
           )
         );
       default:
-        return next();
+        return next(error);
     }
   }
 };
@@ -102,7 +102,7 @@ module.exports.dislikeCard = async (req, res, next) => {
           )
         );
       default:
-        return next();
+        return next(error);
     }
   }
 };
