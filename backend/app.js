@@ -37,11 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(logRequest);
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+
 app.post('/signin', loginValidate, loginUser);
 app.post('/signup', createUserValidate, createUser);
 app.use('/users', auth, userRouter);

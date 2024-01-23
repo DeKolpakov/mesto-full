@@ -171,8 +171,6 @@ module.exports.updateUserAvatar = async (req, res, next) => {
     return next(new NotFoundError('Пользователь с указанным _id не найден.'));
   } catch (error) {
     switch (error.name) {
-      case 'CastError':
-        return next(new BadRequestError('Неверно указан _id пользователя.'));
       case 'ValidationError':
         return next(
           new BadRequestError(
